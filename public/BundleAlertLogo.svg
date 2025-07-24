@@ -1,0 +1,45 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2500 2500" width="2500" height="2500">
+	<title>newBundleAlert_2</title>
+	<defs>
+		<linearGradient id="g1" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-427.158,1275.998,-779.429,-260.925,2252.761,454.401)">
+			<stop offset="0" stop-color="#e2e6e3" stop-opacity="1"/>
+			<stop offset="1" stop-color="#e2e6e3" stop-opacity="0"/>
+		</linearGradient>
+		<linearGradient id="g2" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(948.386,1172.551,-698.453,564.924,1125.709,-64.516)">
+			<stop offset="0" stop-color="#e2e6e3" stop-opacity="1"/>
+			<stop offset="1" stop-color="#e2e6e3" stop-opacity="0"/>
+		</linearGradient>
+		<linearGradient id="g3" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1170.864,-191.779,114.624,699.81,323.677,1528.641)">
+			<stop offset="0" stop-color="#e2e6e3" stop-opacity="1"/>
+			<stop offset="1" stop-color="#e2e6e3" stop-opacity="0"/>
+		</linearGradient>
+		<linearGradient id="g4" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(381.647,-1188.555,731.01,234.728,285.291,1969.321)">
+			<stop offset="0" stop-color="#e2e6e3" stop-opacity="1"/>
+			<stop offset="1" stop-color="#e2e6e3" stop-opacity="0"/>
+		</linearGradient>
+		<linearGradient id="g5" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-1271.572,518.246,-349.794,-858.257,2277.036,956.813)">
+			<stop offset="0" stop-color="#e2e6e3" stop-opacity="1"/>
+			<stop offset="1" stop-color="#e2e6e3" stop-opacity="0"/>
+		</linearGradient>
+		<linearGradient id="g6" x2="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(-941.727,-1148.446,686.755,-563.14,1415.314,2605.687)">
+			<stop offset="0" stop-color="#e2e6e3" stop-opacity="1"/>
+			<stop offset="1" stop-color="#e2e6e3" stop-opacity="0"/>
+		</linearGradient>
+	</defs>
+	<style>
+		.s0 { fill: url(#g1) } 
+		.s1 { fill: url(#g2) } 
+		.s2 { fill: url(#g3) } 
+		.s3 { fill: url(#g4) } 
+		.s4 { fill: url(#g5) } 
+		.s5 { fill: url(#g6) } 
+	</style>
+	<g id="&lt;Group&gt;">
+		<path id="&lt;Path&gt;" class="s0" d="m1518.2 384.9l-268.2 154.8-346.9 200.3v710.3l-268.2-154.9v-710.2l268.2-154.9 346.9-200.3z"/>
+		<path id="&lt;Path&gt;" class="s1" d="m1250 1650.5l-268.2 154.9-346.9-200.3-268.2-154.8v-710.3l268.2-154.8v710.2l268.2 154.9z"/>
+		<path id="&lt;Path&gt;" class="s2" d="m1596.9 1450.3v309.7l-346.9 200.3-268.2 154.8-268.3-154.8-346.8-200.3v-309.7l268.2 154.8 346.9 200.3 268.2-154.9z"/>
+		<path id="&lt;Path&gt;" class="s3" d="m1865.1 1204.6v710.2l-268.2 154.9-346.9 200.3-268.2-154.9 268.2-154.8 346.9-200.3v-710.3z"/>
+		<path id="&lt;Path&gt;" class="s4" d="m2133.3 740v309.7l-268.2-154.8-346.9-200.3-268.2 154.9-346.9 200.2v-309.7l346.9-200.3 268.2-154.8 268.3 154.8z"/>
+		<path id="&lt;Path&gt;" class="s5" d="m2133.3 1049.7v710.3l-268.2 154.8v-710.2l-268.2-154.9-346.9-200.2 268.2-154.9 346.9 200.3z"/>
+	</g>
+</svg>
