@@ -324,19 +324,19 @@ export const getUserStatus = async (userId) => {
 }
 
 /**
- * Disconnect wallet - updated for JWT auth
+ * Disconnect wallet
  */
-export const disconnectWallet = async (walletAddress = null, disconnectAll = false) => {
+export const disconnectWallet = async (userId, walletAddress) => {
   try {
     const response = await apiClient.post('/api/wallet/disconnect', {
-      wallet_address: walletAddress,
-      disconnect_all: disconnectAll
+      user_id: userId,
+      wallet_address: walletAddress
     })
     
     return response.data
   } catch (error) {
-    console.error('[API] Failed to disconnect wallet:', error)
-    throw new Error(error.response?.data?.error || 'Failed to disconnect wallet')
+    // console.error('Failed to disconnect wallet:', error)
+    handleApiError(error)
   }
 }
 

@@ -9,7 +9,6 @@ import WalletConnect from './components/WalletConnect/WalletConnect'
 import VerificationStatus from './components/Verification/VerificationStatus'
 import UserStatus from './components/UserStatus/UserStatus'
 import LoadingSpinner from './components/ui/LoadingSpinner'
-import Button from './components/ui/Button'
 import SecurityFAQ from './components/SecurityFAQ'
 import { useTelegram } from './hooks/useTelegram'
 import { useUserStatus } from './hooks/useUserStatus'
@@ -55,12 +54,6 @@ function AppContent() {
     if (tg) {
       tg.MainButton.show()
     }
-    // Refresh user status after successful verification
-    refreshStatus()
-    // After a short delay, redirect to status view
-    setTimeout(() => {
-      setCurrentStep('status')
-    }, 3000)
   }
 
   const handleError = (error) => {
@@ -85,6 +78,12 @@ function AppContent() {
     refreshStatus()
     setCurrentStep('welcome')
     toast.success('Wallets disconnected successfully')
+  }
+    toast.error(error)
+  }
+
+  const handleRetry = () => {
+    setCurrentStep('welcome')
   }
 
   if (!isInitialized) {
@@ -118,15 +117,6 @@ function AppContent() {
                   </h1>
                   
                 </div>
-
-                {/* Show status button if user has existing wallets */}
-                {userStatus && userStatus.wallets && userStatus.wallets.length > 0 && (
-                  <div className="mb-6">
-                    <Button onClick={handleShowStatus} className="w-full">
-                      📊 View My Status
-                    </Button>
-                  </div>
-                )}
                 
                 <WalletConnect 
                   onConnectionStart={handleConnectionStart}
@@ -158,16 +148,6 @@ function AppContent() {
               <VerificationStatus 
                 step={currentStep}
                 onRetry={handleRetry}
-              />
-            )}
-
-            {currentStep === 'status' && (
-              <UserStatus
-                userStatus={userStatus}
-                isLoading={statusLoading}
-                onRefresh={refreshStatus}
-                onWalletConnect={handleWalletConnect}
-                onDisconnect={handleDisconnect}
               />
             )}
           </motion.div>
