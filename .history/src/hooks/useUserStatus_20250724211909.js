@@ -1,0 +1,40 @@
+import { useState, useEffect } from 'react'
+import { getUserComprehensiveStatus } from '../services/botApi'
+
+export function useUserStatus() {
+  const [userStatus, setUserStatus] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  const fetchUserStatus = async () => {
+    try {
+      setLoading(true)
+      setError(null)
+      
+      const response = await getUserComprehensiveStatus()
+      setUserStatus(response)
+      
+    } catch (err) {
+      console.error('Failed to fetch user status:', err)
+      setError(err.message || 'Failed to fetch user status')
+      setUserStatus(null)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchUserStatus()
+  }, [])
+
+  const refreshStatus = () => {
+    fetchUserStatus()
+  }
+
+  return {
+    userStatus,
+    loading,
+    error,
+    refreshStatus
+  }
+}

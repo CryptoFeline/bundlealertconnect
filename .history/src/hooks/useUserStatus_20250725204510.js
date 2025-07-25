@@ -37,30 +37,12 @@ export function useUserStatus() {
       // Don't set loading state during refresh to avoid UI flicker
       // Just log the error and keep existing status if available
       setError(err.message || 'Failed to refresh user status')
-      
-      // If error contains authentication issues, clear token and retry once
-      if (err.message?.includes('token') || err.message?.includes('auth') || err.message?.includes('401')) {
-        console.log('🔄 Authentication error detected, clearing token and retrying...')
-        localStorage.removeItem('bundlealert_session_token')
-        
-        // Give a brief moment for cleanup, then retry once
-        setTimeout(async () => {
-          try {
-            const retryResponse = await getUserComprehensiveStatus()
-            setUserStatus(retryResponse)
-            setError(null)
-          } catch (retryErr) {
-            console.error('Retry also failed:', retryErr)
-            // Don't throw - just keep the error state
-          }
-        }, 1000)
-      }
     }
   }
 
   return {
     userStatus,
-    isLoading: loading,
+    loading,
     error,
     refreshStatus
   }

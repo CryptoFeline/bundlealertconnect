@@ -175,7 +175,7 @@ export default function VerificationStatus({ step, onSuccess, onError, onRetry, 
         </h3>
         
         <p className="text-green-800 text-sm mb-4">
-          Your wallet has been successfully verified and your tier has been assigned. Choose what to do next:
+          Your wallet has been verified and your tier has been assigned. You'll be automatically redirected to view your status.
         </p>
 
         {account && (
@@ -234,8 +234,8 @@ export default function VerificationStatus({ step, onSuccess, onError, onRetry, 
 
         <div className="mt-4 p-3 bg-green-100 border border-green-200 rounded-xl">
           <p className="text-xs text-green-700">
-            ✅ Verification complete! Your tier benefits are now active in the bot.
-            You can safely disconnect your wallet or check your status below.
+            ✅ Verification complete! You can now safely disconnect your wallet. 
+            Your tier benefits are saved and active in the bot.
           </p>
         </div>
       </Card>

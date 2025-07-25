@@ -27,10 +27,6 @@ class ErrorBoundary extends Component {
       toast.error('Network connection issue. Please check your internet and try again.')
     } else if (error.message?.includes('token') || error.message?.includes('auth')) {
       toast.error('Authentication issue. Please refresh and try again.')
-    } else if (error.message?.includes('Authentication expired')) {
-      toast.error('Session expired. Please refresh to continue.')
-    } else if (error.message?.includes('Failed to fetch user status')) {
-      toast.error('Status loading failed. Your verification was successful.')
     } else {
       toast.error('Something went wrong. Please refresh the page.')
     }

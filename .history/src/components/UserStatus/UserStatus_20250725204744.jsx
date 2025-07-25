@@ -7,7 +7,6 @@ import { disconnectWallet } from '../../services/botApi';
 const UserStatus = ({ 
   userStatus, 
   isLoading, 
-  error,
   onRefresh, 
   onWalletConnect,
   onDisconnect 
@@ -38,38 +37,7 @@ const UserStatus = ({
     return (
       <Card className="p-6 text-center">
         <LoadingSpinner />
-        <p className="mt-4 text-gray-600">Loading your verification status...</p>
-        <p className="mt-2 text-xs text-gray-500">This may take a moment after verification</p>
-      </Card>
-    );
-  }
-
-  // Show error state with retry option
-  if (error && !userStatus) {
-    return (
-      <Card className="p-6 text-center">
-        <div className="w-16 h-16 bg-red-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-          <svg className="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        </div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">
-          Status Loading Failed
-        </h3>
-        <p className="text-gray-600 mb-2 text-sm">
-          {error}
-        </p>
-        <p className="text-gray-500 mb-4 text-xs">
-          If you just completed verification, please wait a moment and try again.
-        </p>
-        <div className="space-y-3">
-          <Button onClick={onRefresh} className="w-full">
-            Try Again
-          </Button>
-          <Button onClick={onWalletConnect} variant="outline" className="w-full">
-            Connect New Wallet
-          </Button>
-        </div>
+        <p className="mt-4 text-gray-600">Loading user status...</p>
       </Card>
     );
   }

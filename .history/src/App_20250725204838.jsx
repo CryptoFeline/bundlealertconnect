@@ -71,8 +71,26 @@ function AppContent() {
       return
     }
     
-    // Remove automatic navigation - let users choose what to do next
-    // This prevents the race condition that causes "Something went wrong"
+    // For automatic navigation, only do it after delay and with better error handling
+    setTimeout(async () => {
+      try {
+        setCurrentStep('status')
+        // Add a small delay before refreshing to ensure state is settled
+        setTimeout(async () => {
+          try {
+            await refreshStatus()
+          } catch (error) {
+            console.error('Error refreshing status after success:', error)
+            // Don't throw the error - just log it to prevent error boundary trigger
+            toast.error('Status refresh failed, but verification was successful!')
+          }
+        }, 500)
+      } catch (error) {
+        console.error('Error in success transition:', error)
+        // Don't throw - just log and show a message
+        toast.error('Verification successful, but had trouble updating status')
+      }
+    }, 3000)
   }
 
   const handleError = (error) => {
@@ -141,24 +159,6 @@ function AppContent() {
                   </div>
                 )}
                 
-                {/* Helpful tip section */}
-                <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-xl">
-                  <div className="flex items-start space-x-3">
-                    <svg className="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <div>
-                      <p className="text-sm font-medium text-blue-800 mb-1">
-                        💡 Quick Start
-                      </p>
-                      <p className="text-xs text-blue-700 leading-relaxed">
-                        Connect your wallet to verify your token holdings and unlock premium features. 
-                        The process is completely safe and only requires a read-only signature.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                
                 <WalletConnect 
                   onConnectionStart={handleConnectionStart}
                   onVerificationStart={handleVerificationStart}
@@ -196,7 +196,6 @@ function AppContent() {
               <UserStatus
                 userStatus={userStatus}
                 isLoading={statusLoading}
-                error={statusError}
                 onRefresh={refreshStatus}
                 onWalletConnect={handleWalletConnect}
                 onDisconnect={handleDisconnect}

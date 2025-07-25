@@ -27,10 +27,6 @@ class ErrorBoundary extends Component {
       toast.error('Network connection issue. Please check your internet and try again.')
     } else if (error.message?.includes('token') || error.message?.includes('auth')) {
       toast.error('Authentication issue. Please refresh and try again.')
-    } else if (error.message?.includes('Authentication expired')) {
-      toast.error('Session expired. Please refresh to continue.')
-    } else if (error.message?.includes('Failed to fetch user status')) {
-      toast.error('Status loading failed. Your verification was successful.')
     } else {
       toast.error('Something went wrong. Please refresh the page.')
     }
@@ -51,27 +47,14 @@ class ErrorBoundary extends Component {
                 Something went wrong
               </h2>
               <p className="text-gray-600 mb-6">
-                We encountered an unexpected error. This might be a temporary issue with the verification process.
+                We encountered an unexpected error. Please refresh the page and try again.
               </p>
-              <div className="space-y-3">
-                <button
-                  onClick={() => window.location.reload()}
-                  className="w-full bg-blue-500 text-white rounded-xl py-3 px-6 font-medium hover:bg-blue-600 transition-colors duration-200"
-                >
-                  Refresh & Try Again
-                </button>
-                <button
-                  onClick={() => {
-                    // Clear potential problematic data
-                    localStorage.removeItem('bundlealert_session_token')
-                    localStorage.removeItem('bundlealert_wallet_address')
-                    window.location.reload()
-                  }}
-                  className="w-full bg-gray-100 text-gray-700 rounded-xl py-3 px-6 font-medium hover:bg-gray-200 transition-colors duration-200"
-                >
-                  Reset & Start Fresh
-                </button>
-              </div>
+              <button
+                onClick={() => window.location.reload()}
+                className="w-full bg-blue-500 text-white rounded-xl py-3 px-6 font-medium hover:bg-blue-600 transition-colors duration-200"
+              >
+                Refresh Page
+              </button>
               
               {import.meta.env.DEV && this.state.error && (
                 <details className="mt-4 text-left">

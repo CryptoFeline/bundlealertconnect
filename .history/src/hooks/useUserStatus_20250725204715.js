@@ -60,7 +60,7 @@ export function useUserStatus() {
 
   return {
     userStatus,
-    isLoading: loading,
+    loading,
     error,
     refreshStatus
   }

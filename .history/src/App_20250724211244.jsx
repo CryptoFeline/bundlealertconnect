@@ -50,29 +50,17 @@ function AppContent() {
     setCurrentStep('verifying')
   }
 
-  const handleSuccess = (navigationHint) => {
+  const handleSuccess = () => {
     setCurrentStep('success')
     if (tg) {
       tg.MainButton.show()
     }
-    
-    // If user manually requested status navigation, do it immediately
-    if (navigationHint === 'manual_status_nav') {
+    // Refresh user status after successful verification
+    refreshStatus()
+    // After a short delay, redirect to status view
+    setTimeout(() => {
       setCurrentStep('status')
-      // Delayed refresh to give state time to settle
-      setTimeout(async () => {
-        try {
-          await refreshStatus()
-        } catch (error) {
-          console.error('Error refreshing status:', error)
-          toast.error('Status loaded with some issues. Try refreshing if needed.')
-        }
-      }, 1000)
-      return
-    }
-    
-    // Remove automatic navigation - let users choose what to do next
-    // This prevents the race condition that causes "Something went wrong"
+    }, 3000)
   }
 
   const handleError = (error) => {
@@ -124,12 +112,11 @@ function AppContent() {
             {currentStep === 'welcome' && (
               <div className="space-y-6">
                 <div className="text-center mb-8">
+                  
                   <h1 className="text-2xl font-semibold text-gray-900 mb-2">
                     {user?.first_name ? `Welcome, ${user.first_name}!` : 'Welcome!'}
                   </h1>
-                  <p className="text-gray-600">
-                    Connect your wallet to verify your BundleAlert subscription tier
-                  </p>
+                  
                 </div>
 
                 {/* Show status button if user has existing wallets */}
@@ -140,24 +127,6 @@ function AppContent() {
                     </Button>
                   </div>
                 )}
-                
-                {/* Helpful tip section */}
-                <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-xl">
-                  <div className="flex items-start space-x-3">
-                    <svg className="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <div>
-                      <p className="text-sm font-medium text-blue-800 mb-1">
-                        💡 Quick Start
-                      </p>
-                      <p className="text-xs text-blue-700 leading-relaxed">
-                        Connect your wallet to verify your token holdings and unlock premium features. 
-                        The process is completely safe and only requires a read-only signature.
-                      </p>
-                    </div>
-                  </div>
-                </div>
                 
                 <WalletConnect 
                   onConnectionStart={handleConnectionStart}
@@ -196,7 +165,6 @@ function AppContent() {
               <UserStatus
                 userStatus={userStatus}
                 isLoading={statusLoading}
-                error={statusError}
                 onRefresh={refreshStatus}
                 onWalletConnect={handleWalletConnect}
                 onDisconnect={handleDisconnect}

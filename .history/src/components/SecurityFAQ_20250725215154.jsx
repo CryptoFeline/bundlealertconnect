@@ -77,23 +77,14 @@ export default function SecurityFAQ() {
       >
         <div className="space-y-2 pr-2">
           {faqData.map((item, index) => (
-            <div key={index} className={`border rounded-xl overflow-hidden ${
-              item.importance === 'high' 
-                ? 'border-blue-200 bg-blue-50/30' 
-                : 'border-gray-200'
-            }`}>
+            <div key={index} className="border border-gray-200 rounded-xl overflow-hidden">
               <button
                 onClick={() => toggleItem(index)}
                 className="w-full px-4 py-3 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200"
               >
-                <div className="flex items-center space-x-2 pr-2">
-                  {item.importance === 'high' && (
-                    <span className="text-blue-500 text-xs">⭐</span>
-                  )}
-                  <span className="text-sm font-medium text-gray-900">
-                    {item.question}
-                  </span>
-                </div>
+                <span className="text-sm font-medium text-gray-900 pr-2">
+                  {item.question}
+                </span>
                 <motion.div
                   animate={{ rotate: openItems[index] ? 180 : 0 }}
                   transition={{ duration: 0.2 }}
