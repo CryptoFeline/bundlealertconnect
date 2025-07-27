@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { toast } from 'react-hot-toast'
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'
 import { WalletProvider } from './contexts/WalletContext'
 import { TelegramProvider } from './contexts/TelegramContext'
 import ErrorBoundary from './components/ErrorBoundary'
@@ -13,52 +12,6 @@ import SecurityFAQ from './components/SecurityFAQ'
 import { useTelegram } from './hooks/useTelegram'
 import { useUserStatus } from './hooks/useUserStatus'
 import { disconnectWallet } from './services/botApi'
-
-// Helper function to get tier-specific colors
-const getTierColors = (tier) => {
-  switch (tier) {
-    case 'free':
-      return {
-        iconBg: 'bg-gray-100',
-        iconColor: 'text-gray-600',
-        borderColor: 'border-gray-200',
-        gradientFrom: 'from-gray-50',
-        gradientTo: 'to-gray-100'
-      }
-    case 'tier1': // Bronze
-      return {
-        iconBg: 'bg-amber-100',
-        iconColor: 'text-amber-700',
-        borderColor: 'border-amber-300',
-        gradientFrom: 'from-amber-50',
-        gradientTo: 'to-orange-50'
-      }
-    case 'tier2': // Silver
-      return {
-        iconBg: 'bg-slate-100',
-        iconColor: 'text-slate-600',
-        borderColor: 'border-slate-300',
-        gradientFrom: 'from-slate-50',
-        gradientTo: 'to-gray-100'
-      }
-    case 'tier3': // Gold
-      return {
-        iconBg: 'bg-yellow-100',
-        iconColor: 'text-yellow-700',
-        borderColor: 'border-yellow-300',
-        gradientFrom: 'from-yellow-50',
-        gradientTo: 'to-amber-50'
-      }
-    default:
-      return {
-        iconBg: 'bg-red-100',
-        iconColor: 'text-red-600',
-        borderColor: 'border-red-200',
-        gradientFrom: 'from-red-50',
-        gradientTo: 'to-red-100'
-      }
-  }
-}
 
 function AppContent() {
   const [isInitialized, setIsInitialized] = useState(false)
@@ -178,15 +131,20 @@ function AppContent() {
                     </div>
                   </div>
                 ) : userStatus ? (
-                  <div className={`mb-6 p-4 bg-gradient-to-r ${getTierColors(userStatus.current_state?.current_tier).gradientFrom} ${getTierColors(userStatus.current_state?.current_tier).gradientTo} border ${getTierColors(userStatus.current_state?.current_tier).borderColor} rounded-xl`}>
+                  <div className="mb-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-xl">
                     <div className="flex items-start space-x-3">
                       <div className="flex-shrink-0">
-                        <div className={`w-12 h-12 rounded-full ${getTierColors(userStatus.current_state?.current_tier).iconBg} flex items-center justify-center`}>
-                          <AutoAwesomeIcon 
-                            className={`${getTierColors(userStatus.current_state?.current_tier).iconColor}`}
-                            sx={{ fontSize: 24 }}
-                          />
-                        </div>
+                        {userStatus.current_state?.current_tier === 'free' ? (
+                          <span className="text-2xl">🆓</span>
+                        ) : userStatus.current_state?.current_tier === 'tier1' ? (
+                          <span className="text-2xl">🥉</span>
+                        ) : userStatus.current_state?.current_tier === 'tier2' ? (
+                          <span className="text-2xl">🥈</span>
+                        ) : userStatus.current_state?.current_tier === 'tier3' ? (
+                          <span className="text-2xl">🥇</span>
+                        ) : (
+                          <span className="text-2xl">❌️</span>
+                        )}
                       </div>
                       <div className="flex-1">
                         <p className="text-sm font-semibold text-gray-900 mb-1">
@@ -221,7 +179,7 @@ function AppContent() {
                           </div>
                         ) : (
                           <p className="text-xs text-blue-700">
-                            No wallets verified yet.
+                            ❌No wallets verified yet.
                           </p>
                         )}
                       </div>

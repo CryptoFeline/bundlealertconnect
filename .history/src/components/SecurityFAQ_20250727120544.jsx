@@ -11,7 +11,7 @@ const faqData = [
   },
   {
     question: 'Step-by-step: How does the verification work?',
-    answer: '1. Click "Connect Wallet" above\n2. Choose your wallet from the list\n3. Your wallet app will open - approve the connection\n4. Sign the verification message (read-only, no permissions)\n5. We check your token balance and assign your tier\n6. Disconnect your wallet for security\n7. Return to the bot to enjoy your new features!',
+    answer: '1. Click "Connect Wallet" below\n2. Choose your wallet from the list\n3. Your wallet app will open - approve the connection\n4. Sign the verification message (read-only, no permissions)\n5. We check your token balance and assign your tier\n6. Disconnect your wallet for security\n7. Return to the bot to enjoy your new features!',
     importance: 'high'
   },
   {
