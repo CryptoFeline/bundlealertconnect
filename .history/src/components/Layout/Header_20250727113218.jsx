@@ -11,7 +11,8 @@ export default function Header() {
       <div className="container mx-auto px-4 h-16 flex items-center justify-center">
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 rounded-lg flex items-center justify-center">
-            {/* TODO: If dark mode use BundleAlertLogo.svg, if light mode use BundleAlertLogo_dark.svg */}
+            {/* If dark mode use BundleAlertLogo.svg, if light mode use BundleAlertLogo_dark.svg */}
+            
             <img src="/BundleAlertLogo.svg" alt="BundleAlert Logo" className="w-8 h-8" />
           </div>
           <h1 className="text-lg font-semibold text-gray-900">

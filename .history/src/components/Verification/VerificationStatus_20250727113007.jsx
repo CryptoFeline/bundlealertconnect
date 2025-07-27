@@ -102,7 +102,7 @@ export default function VerificationStatus({ step, onSuccess, onError, onRetry, 
 
         <div className="mt-6 pt-4 border-t border-gray-200">
           <p className="text-xs text-gray-500 mb-3">
-            Stuck on this screen? Clear session!
+            Stuck on this screen? Try clearing the session:
           </p>
           <Button
             variant="outline"
@@ -150,7 +150,7 @@ export default function VerificationStatus({ step, onSuccess, onError, onRetry, 
         <div className="space-y-2 text-xs text-gray-500">
           <p>• Sign the message in your wallet</p>
           <p>• We're checking your token balance</p>
-          <p>• Then will determine your tier level</p>
+          <p>• Then determi your tier level</p>
         </div>
       </Card>
     )

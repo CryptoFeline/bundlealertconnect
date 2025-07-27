@@ -102,7 +102,7 @@ export default function VerificationStatus({ step, onSuccess, onError, onRetry, 
 
         <div className="mt-6 pt-4 border-t border-gray-200">
           <p className="text-xs text-gray-500 mb-3">
-            Stuck on this screen? Clear session!
+            Stuck on this screen? Clear session:
           </p>
           <Button
             variant="outline"

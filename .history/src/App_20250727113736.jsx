@@ -11,12 +11,10 @@ import LoadingSpinner from './components/ui/LoadingSpinner'
 import SecurityFAQ from './components/SecurityFAQ'
 import { useTelegram } from './hooks/useTelegram'
 import { useUserStatus } from './hooks/useUserStatus'
-import { disconnectWallet } from './services/botApi'
 
 function AppContent() {
   const [isInitialized, setIsInitialized] = useState(false)
   const [currentStep, setCurrentStep] = useState('welcome') // welcome, connecting, verifying, success, error
-  const [isDisconnecting, setIsDisconnecting] = useState(false)
   const { tg, user, initData } = useTelegram()
   const { userStatus, isLoading: statusLoading, error: statusError, refreshStatus } = useUserStatus()
 
@@ -67,26 +65,6 @@ function AppContent() {
 
   const handleRetry = () => {
     setCurrentStep('welcome')
-  }
-
-  const handleDisconnectWallet = async () => {
-    setIsDisconnecting(true)
-    
-    try {
-      await disconnectWallet(userStatus.wallets?.[0]?.address, false)
-      toast.success('🔓 Wallet disconnected successfully!')
-      
-      // Refresh status to update the UI
-      setTimeout(async () => {
-        await refreshStatus()
-      }, 1000)
-      
-    } catch (error) {
-      console.error('Error disconnecting wallet:', error)
-      toast.error('Failed to disconnect wallet: ' + error.message)
-    } finally {
-      setIsDisconnecting(false)
-    }
   }
 
   if (!isInitialized) {
@@ -154,29 +132,11 @@ function AppContent() {
                                         userStatus.current_state?.current_tier === 'tier3' ? 'Gold' : 'Unknown'}
                         </p>
                         {userStatus.current_state?.has_verified_wallets ? (
-                          <div className="space-y-2">
-                            <p className="text-xs text-green-700">
-                              ✅ {userStatus.wallets?.[0]?.address 
-                                ? `${userStatus.wallets[0].address.slice(0, 6)}...${userStatus.wallets[0].address.slice(-4)} wallet verified`
-                                : `Wallet verified`
-                              }
-                            </p>
-                            <div className="flex space-x-2">
-                              <button
-                                onClick={handleDisconnectWallet}
-                                disabled={isDisconnecting}
-                                className="px-2 py-1 text-xs bg-red-100 hover:bg-red-200 text-red-700 rounded disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                              >
-                                {isDisconnecting ? '⏳ Disconnecting...' : '🔓 Disconnect'}
-                              </button>
-                              <button
-                                onClick={() => setCurrentStep('connecting')}
-                                className="px-2 py-1 text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 rounded transition-colors"
-                              >
-                                🔄 Re-verify
-                              </button>
-                            </div>
-                          </div>
+                          <p className="text-xs text-green-700">
+                            {/* to get the wallet itself use: 
+                             */}
+                            ✅ {userStatus.current_state.wallet_count} wallet(s) verified
+                          </p>
                         ) : (
                           <p className="text-xs text-blue-700">
                             ❌️ No wallets verified yet.
