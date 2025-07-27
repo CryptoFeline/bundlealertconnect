@@ -18,8 +18,8 @@ export default function NonTelegramAccess() {
           className="mx-auto mb-6 w-20 h-20 bg-red-500 rounded-full flex items-center justify-center"
         >
           <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2L1 21h22L12 2zm0 3.2L19.2 19H4.8L12 5.2zm-1 5h2v6h-2v-6zm0 7h2v2h-2v-2z" fill="#ffffff"/>
-            <path d="M12 10h-2v6h2v-6zm0 7h2v2h-2v-2z" fill="#00000000"/>
+            <path d="M12 2L1 21h22L12 2zm0 3.2L19.2 19H4.8L12 5.2zm-1 5h2v6h-2v-6zm0 7h2v2h-2v-2z" fill="#ffcc00"/>
+            <path d="M12 10h-2v6h2v-6zm0 7h2v2h-2v-2z" fill="#000000"/>
           </svg>
         </motion.div>
 
