@@ -1,6 +1,5 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import ReportIcon from '@mui/icons-material/Report'
 
 export default function NonTelegramAccess() {
   return (
@@ -16,9 +15,10 @@ export default function NonTelegramAccess() {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-          className="mx-auto mb-6 w-20 h-20 bg-red-500 rounded-full flex items-center justify-center"
-        >
-          <ReportIcon className="w-10 h-10 text-white" style={{ fontSize: '2.5rem' }} />
+          className="mx-auto mb-6 w-20 h-20 bg-red-500 rounded-full flex items-center justify-center">
+          <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.464 0L4.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+          </svg>
         </motion.div>
 
         {/* Error Title */}
