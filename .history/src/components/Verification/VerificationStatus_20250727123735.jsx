@@ -403,6 +403,13 @@ export default function VerificationStatus({ step, onSuccess, onError, onRetry, 
                   alertDiv.appendChild(headerDiv)
                   alertDiv.appendChild(preElement)
                   alertDiv.appendChild(statusDiv)
+                        corsTestResult?.error ? '❌ CORS/Network connectivity issue' :
+                        corsTestResult?.ok && authTestResult?.status === 200 ? '✅ All tests successful!' : 
+                        corsTestResult?.ok && authTestResult?.status === 401 ? '🔐 Network OK, Auth validation issue (expected outside Telegram)' :
+                        corsTestResult?.ok ? '⚠️ Network OK but server issue' :
+                        '❌ Cannot reach server - check network/CORS'}
+                    </div>
+                  `
                   document.body.appendChild(alertDiv)
                   
                   // Auto-remove after 20 seconds

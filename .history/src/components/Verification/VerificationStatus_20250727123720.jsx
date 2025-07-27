@@ -403,6 +403,13 @@ export default function VerificationStatus({ step, onSuccess, onError, onRetry, 
                   alertDiv.appendChild(headerDiv)
                   alertDiv.appendChild(preElement)
                   alertDiv.appendChild(statusDiv)
+                        corsTestResult?.error ? '❌ CORS/Network connectivity issue' :
+                        corsTestResult?.ok && authTestResult?.status === 200 ? '✅ All tests successful!' : 
+                        corsTestResult?.ok && authTestResult?.status === 401 ? '🔐 Network OK, Auth validation issue (expected outside Telegram)' :
+                        corsTestResult?.ok ? '⚠️ Network OK but server issue' :
+                        '❌ Cannot reach server - check network/CORS'}
+                    </div>
+                  `
                   document.body.appendChild(alertDiv)
                   
                   // Auto-remove after 20 seconds
@@ -413,39 +420,19 @@ export default function VerificationStatus({ step, onSuccess, onError, onRetry, 
                   }, 20000)
                   
                 } catch (e) {
-                  // Create error alert using safe DOM manipulation
+                  // Create error alert
                   const alertDiv = document.createElement('div')
                   alertDiv.className = 'fixed top-4 left-4 right-4 bg-red-800 text-white p-4 rounded z-50 text-xs'
-                  
-                  const containerDiv = document.createElement('div')
-                  containerDiv.className = 'flex justify-between items-start'
-                  
-                  const contentDiv = document.createElement('div')
-                  
-                  const titleElement = document.createElement('strong')
-                  titleElement.textContent = '❌ Test Error'
-                  
-                  const messageDiv = document.createElement('div')
-                  messageDiv.className = 'mt-1'
-                  messageDiv.textContent = e.message
-                  
-                  const descDiv = document.createElement('div')
-                  descDiv.className = 'mt-2 text-red-300 text-xs'
-                  descDiv.textContent = 'Error in test execution itself'
-                  
-                  const closeButton = document.createElement('button')
-                  closeButton.className = 'text-white hover:text-gray-300'
-                  closeButton.textContent = '×'
-                  closeButton.onclick = () => alertDiv.remove()
-                  
-                  contentDiv.appendChild(titleElement)
-                  contentDiv.appendChild(messageDiv)
-                  contentDiv.appendChild(descDiv)
-                  
-                  containerDiv.appendChild(contentDiv)
-                  containerDiv.appendChild(closeButton)
-                  
-                  alertDiv.appendChild(containerDiv)
+                  alertDiv.innerHTML = `
+                    <div class="flex justify-between items-start">
+                      <div>
+                        <strong>❌ Test Error</strong>
+                        <div class="mt-1">${e.message}</div>
+                        <div class="mt-2 text-red-300 text-xs">Error in test execution itself</div>
+                      </div>
+                      <button onclick="this.parentElement.parentElement.remove()" class="text-white hover:text-gray-300">&times;</button>
+                    </div>
+                  `
                   document.body.appendChild(alertDiv)
                   setTimeout(() => alertDiv.remove(), 5000)
                 }
