@@ -17,8 +17,9 @@ export default function NonTelegramAccess() {
           transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
           className="mx-auto mb-6 w-20 h-20 bg-red-500 rounded-full flex items-center justify-center"
         >
-          <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.464 0L4.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+          <svg className="w-10 h-10 text-white" viewBox="0 0 24 24">
+            <path d="M12 2L1 21h22L12 2zm0 3.2L19.2 19H4.8L12 5.2zm-1 5h2v6h-2v-6zm0 7h2v2h-2v-2z" fill="#ffffff"/>
+            <path d="M12 10h-2v6h2v-6zm0 7h2v2h-2v-2z" fill="currentColor"/>
           </svg>
         </motion.div>
 
