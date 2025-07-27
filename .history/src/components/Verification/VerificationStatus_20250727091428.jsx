@@ -412,7 +412,7 @@ export default function VerificationStatus({ step, onSuccess, onError, onRetry, 
               🔧 Test Network & Server
             </button>
           </div>
-        </div> */}
+        </div>*/}
 
         <div className="space-y-3 mb-6">
           {isConnectionError ? (

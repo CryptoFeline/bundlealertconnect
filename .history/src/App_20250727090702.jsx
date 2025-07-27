@@ -7,14 +7,16 @@ import ErrorBoundary from './components/ErrorBoundary'
 import Header from './components/Layout/Header'
 import WalletConnect from './components/WalletConnect/WalletConnect'
 import VerificationStatus from './components/Verification/VerificationStatus'
+import UserStatus from './components/UserStatus/UserStatus'
 import LoadingSpinner from './components/ui/LoadingSpinner'
+import Button from './components/ui/Button'
 import SecurityFAQ from './components/SecurityFAQ'
 import { useTelegram } from './hooks/useTelegram'
 import { useUserStatus } from './hooks/useUserStatus'
 
 function AppContent() {
   const [isInitialized, setIsInitialized] = useState(false)
-  const [currentStep, setCurrentStep] = useState('welcome') // welcome, connecting, verifying, success, error
+  const [currentStep, setCurrentStep] = useState('welcome') // welcome, connecting, verifying, success, error, status
   const { tg, user, initData } = useTelegram()
   const { userStatus, isLoading: statusLoading, error: statusError, refreshStatus } = useUserStatus()
 
@@ -33,6 +35,13 @@ function AppContent() {
     }
   }, [tg])
 
+  // Auto-redirect to status if user has existing wallets
+  useEffect(() => {
+    if (userStatus && userStatus.wallets && userStatus.wallets.length > 0 && currentStep === 'welcome') {
+      setCurrentStep('status')
+    }
+  }, [userStatus, currentStep])
+
   const handleConnectionStart = () => {
     setCurrentStep('connecting')
   }
@@ -47,15 +56,23 @@ function AppContent() {
       tg.MainButton.show()
     }
     
-    // After successful verification, refresh the status to update the display
-    setTimeout(async () => {
-      try {
-        await refreshStatus()
-      } catch (error) {
-        console.error('Error refreshing status after success:', error)
-        // Don't throw - just log it
-      }
-    }, 1000)
+    // If user manually requested status navigation, do it immediately
+    if (navigationHint === 'manual_status_nav') {
+      setCurrentStep('status')
+      // Delayed refresh to give state time to settle
+      setTimeout(async () => {
+        try {
+          await refreshStatus()
+        } catch (error) {
+          console.error('Error refreshing status:', error)
+          toast.error('Status loaded with some issues. Try refreshing if needed.')
+        }
+      }, 1000)
+      return
+    }
+    
+    // Remove automatic navigation - let users choose what to do next
+    // This prevents the race condition that causes "Something went wrong"
   }
 
   const handleError = (error) => {
@@ -65,6 +82,21 @@ function AppContent() {
 
   const handleRetry = () => {
     setCurrentStep('welcome')
+  }
+
+  const handleShowStatus = () => {
+    setCurrentStep('status')
+  }
+
+  const handleWalletConnect = () => {
+    setCurrentStep('welcome')
+  }
+
+  const handleDisconnect = () => {
+    // After disconnect, refresh status and go to welcome
+    refreshStatus()
+    setCurrentStep('welcome')
+    toast.success('Wallets disconnected successfully')
   }
 
   if (!isInitialized) {
@@ -201,11 +233,6 @@ function AppContent() {
               <VerificationStatus 
                 step={currentStep}
                 onReturnToBot={() => tg?.close()}
-                onSuccess={() => {
-                  // After clicking "Return to welcome", go back and refresh
-                  setCurrentStep('welcome')
-                  refreshStatus()
-                }}
               />
             )}
 
@@ -213,6 +240,17 @@ function AppContent() {
               <VerificationStatus 
                 step={currentStep}
                 onRetry={handleRetry}
+              />
+            )}
+
+            {currentStep === 'status' && (
+              <UserStatus
+                userStatus={userStatus}
+                isLoading={statusLoading}
+                error={statusError}
+                onRefresh={refreshStatus}
+                onWalletConnect={handleWalletConnect}
+                onDisconnect={handleDisconnect}
               />
             )}
           </motion.div>

@@ -209,12 +209,26 @@ export default function VerificationStatus({ step, onSuccess, onError, onRetry, 
           </Button>
 
           <Button
+            onClick={() => {
+              // Return to welcome page to see updated status
+              if (onSuccess) {
+                onSuccess('return_to_welcome')
+              }
+            }}
+            variant="secondary"
+            size="lg"
+            className="w-full bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100"
+          >
+            🏠 Return to Welcome
+          </Button>
+
+          <Button
             onClick={handleDisconnect}
             variant="secondary"
             size="md"
             className="w-full"
           >
-            Disconnect Wallet
+            Disconnect Wallet (Recommended)
           </Button>
         </div>
 
@@ -247,7 +261,7 @@ export default function VerificationStatus({ step, onSuccess, onError, onRetry, 
           {errorMessage || 'We couldn\'t verify your wallet. This might be due to a connection issue or cancelled transaction.'}
         </p>
 
-        {/* Always show debug information for troubleshooting
+        {/* Always show debug information for troubleshooting */}
         <div className="bg-gray-100 p-3 rounded text-xs text-left mb-4 border">
           <div className="font-mono text-gray-700">
             <div className="font-bold text-gray-900 mb-2">🔍 Diagnostic Info:</div>
@@ -257,7 +271,7 @@ export default function VerificationStatus({ step, onSuccess, onError, onRetry, 
               <div>Token: {localStorage.getItem(STORAGE_KEYS.SESSION_TOKEN) ? '✅ Present' : '❌ Missing'}</div>
               <div className="text-red-700 font-medium">Error: {errorMessage}</div>
               
-              Enhanced Telegram Debug Info
+              {/* Enhanced Telegram Debug Info */}
               <div className="mt-2 p-2 bg-blue-50 border border-blue-200 rounded">
                 <div className="font-bold text-blue-800 mb-1">🔧 Telegram WebApp Debug:</div>
                 <div className="text-blue-700 space-y-1">
@@ -412,7 +426,7 @@ export default function VerificationStatus({ step, onSuccess, onError, onRetry, 
               🔧 Test Network & Server
             </button>
           </div>
-        </div> */}
+        </div>
 
         <div className="space-y-3 mb-6">
           {isConnectionError ? (

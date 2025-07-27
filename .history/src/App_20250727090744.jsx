@@ -7,14 +7,16 @@ import ErrorBoundary from './components/ErrorBoundary'
 import Header from './components/Layout/Header'
 import WalletConnect from './components/WalletConnect/WalletConnect'
 import VerificationStatus from './components/Verification/VerificationStatus'
+import UserStatus from './components/UserStatus/UserStatus'
 import LoadingSpinner from './components/ui/LoadingSpinner'
+import Button from './components/ui/Button'
 import SecurityFAQ from './components/SecurityFAQ'
 import { useTelegram } from './hooks/useTelegram'
 import { useUserStatus } from './hooks/useUserStatus'
 
 function AppContent() {
   const [isInitialized, setIsInitialized] = useState(false)
-  const [currentStep, setCurrentStep] = useState('welcome') // welcome, connecting, verifying, success, error
+  const [currentStep, setCurrentStep] = useState('welcome') // welcome, connecting, verifying, success, error, status
   const { tg, user, initData } = useTelegram()
   const { userStatus, isLoading: statusLoading, error: statusError, refreshStatus } = useUserStatus()
 

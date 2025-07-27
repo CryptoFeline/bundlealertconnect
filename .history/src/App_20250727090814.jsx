@@ -14,7 +14,7 @@ import { useUserStatus } from './hooks/useUserStatus'
 
 function AppContent() {
   const [isInitialized, setIsInitialized] = useState(false)
-  const [currentStep, setCurrentStep] = useState('welcome') // welcome, connecting, verifying, success, error
+  const [currentStep, setCurrentStep] = useState('welcome') // welcome, connecting, verifying, success, error, status
   const { tg, user, initData } = useTelegram()
   const { userStatus, isLoading: statusLoading, error: statusError, refreshStatus } = useUserStatus()
 

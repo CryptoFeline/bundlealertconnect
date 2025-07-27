@@ -257,7 +257,7 @@ export default function VerificationStatus({ step, onSuccess, onError, onRetry, 
               <div>Token: {localStorage.getItem(STORAGE_KEYS.SESSION_TOKEN) ? '✅ Present' : '❌ Missing'}</div>
               <div className="text-red-700 font-medium">Error: {errorMessage}</div>
               
-              Enhanced Telegram Debug Info
+              {/* Enhanced Telegram Debug Info */}
               <div className="mt-2 p-2 bg-blue-50 border border-blue-200 rounded">
                 <div className="font-bold text-blue-800 mb-1">🔧 Telegram WebApp Debug:</div>
                 <div className="text-blue-700 space-y-1">
@@ -412,7 +412,7 @@ export default function VerificationStatus({ step, onSuccess, onError, onRetry, 
               🔧 Test Network & Server
             </button>
           </div>
-        </div> */}
+        </div>
 
         <div className="space-y-3 mb-6">
           {isConnectionError ? (
