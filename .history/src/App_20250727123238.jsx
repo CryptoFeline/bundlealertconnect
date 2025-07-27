@@ -173,11 +173,6 @@ function AppContent() {
     )
   }
 
-  // Show non-Telegram access page if not in Telegram environment
-  if (isTelegramEnvironment === false) {
-    return <NonTelegramAccess />
-  }
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <Header />

@@ -65,37 +65,12 @@ function AppContent() {
   const [isInitialized, setIsInitialized] = useState(false)
   const [currentStep, setCurrentStep] = useState('welcome') // welcome, connecting, verifying, success, error
   const [isDisconnecting, setIsDisconnecting] = useState(false)
-  const [isTelegramEnvironment, setIsTelegramEnvironment] = useState(null) // null = checking, true = telegram, false = not telegram
   const { tg, user, initData } = useTelegram()
   const { userStatus, isLoading: statusLoading, error: statusError, refreshStatus } = useUserStatus()
 
   useEffect(() => {
-    // Check if we're in Telegram WebApp environment
-    const checkTelegramEnvironment = () => {
-      // Check for Telegram WebApp object
-      const hasTelegramWebApp = window.Telegram?.WebApp
-      // Check for telegram-specific user agent or referrer
-      const userAgent = navigator.userAgent.toLowerCase()
-      const isTelegramUA = userAgent.includes('telegram')
-      
-      // More comprehensive check
-      const isTelegram = hasTelegramWebApp || isTelegramUA
-      
-      setIsTelegramEnvironment(isTelegram)
-      
-      if (!isTelegram) {
-        console.log('🚫 Not in Telegram environment - showing access restriction page')
-        return
-      }
-    }
-
-    // Small delay to ensure all telegram objects are loaded
-    setTimeout(checkTelegramEnvironment, 100)
-  }, [])
-
-  useEffect(() => {
-    // Initialize Telegram WebApp only if in telegram environment
-    if (isTelegramEnvironment && tg) {
+    // Initialize Telegram WebApp
+    if (tg) {
       tg.ready()
       tg.expand()
       setIsInitialized(true)
@@ -105,11 +80,8 @@ function AppContent() {
       tg.MainButton.onClick(() => {
         tg.close()
       })
-    } else if (isTelegramEnvironment === false) {
-      // Not in telegram, but still mark as initialized to show the restriction page
-      setIsInitialized(true)
     }
-  }, [tg, isTelegramEnvironment])
+  }, [tg])
 
   const handleConnectionStart = () => {
     setCurrentStep('connecting')
@@ -171,11 +143,6 @@ function AppContent() {
         <LoadingSpinner size="lg" />
       </div>
     )
-  }
-
-  // Show non-Telegram access page if not in Telegram environment
-  if (isTelegramEnvironment === false) {
-    return <NonTelegramAccess />
   }
 
   return (
