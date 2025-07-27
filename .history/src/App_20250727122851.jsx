@@ -220,7 +220,7 @@ function AppContent() {
                             </div>
                           </div>
                         ) : (
-                          <p className="text-xs text-gray-700">
+                          <p className="text-xs txt-gray-700">
                             No wallets verified yet.
                           </p>
                         )}

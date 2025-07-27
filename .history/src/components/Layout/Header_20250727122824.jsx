@@ -33,7 +33,7 @@ export default function Header() {
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 rounded-lg flex items-center justify-center">
             <img 
-              src={isDarkMode ? "/BundleAlertLogo_dark.svg" : "/BundleAlertLogo.svg"} 
+              src={isDarkMode ? "/BundleAlertLogo_dark.svg" : "/BundleAlertLogo_dark.svg"} 
               alt="BundleAlert Logo" 
               className="w-8 h-8" 
             />
